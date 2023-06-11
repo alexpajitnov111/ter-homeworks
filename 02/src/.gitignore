@@ -10,5 +10,6 @@
 personal.auto.tfvars
 
 
-# hide backup files
+# hide etc
+demostration2.tf
 *.*_bkp
