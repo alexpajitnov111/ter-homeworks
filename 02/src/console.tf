@@ -20,7 +20,7 @@ locals {
       ram   = 8
       image = "ubuntu-20-04"
       disks = ["vda", "vdb"]
-    },
+    }
     production = {
       cpu   = 10
       ram   = 40
@@ -30,3 +30,5 @@ locals {
   }
 }
 
+### interpolation выражение для terraform console
+"${local.test_map.admin} is admin for production server based on OS ${local.servers.production.image} with ${local.servers.production.cpu} vcpu, ${local.servers.production.ram} ram and ${length(local.servers.production.disks)} virtual disks"
