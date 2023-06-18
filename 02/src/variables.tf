@@ -31,29 +31,43 @@ variable "vpc_name" {
   description = "VPC network & subnet name"
 }
 
+###resources vars
 
-###vars for changing hardcode values
-
-variable "vm_web_compute_image_family" {
-  type = string
-  default = "ubuntu-2004-lts"
-  description = "os family for yandex_compute_image"
+variable "vm_web_resources" { 
+  default = {
+    cores = 2
+    memory = 1
+    core_fraction = 5
+  }
+  description = "Web vm resources"
 }
 
-variable "vm_web_compute_instance_name" {
-  type = string
-  default = "netology-develop-platform-web"
-  description = "name for yandex_compute_instance"
+variable "vm_db_resources" {
+  default = {
+    cores = 2
+    memory = 2
+    core_fraction = 20
+  }
+  description = "DB vm resources"
 }
 
-variable "vm_web_compute_instance_platform_id" {
-  type = string
-  default = "standard-v1"
-  description = "platform id for yandex_compute_instance"
+variable "vms_resources" {
+  default = {
+    web_cores = 2
+    web_memory = 1
+    web_core_fraction = 5
+    db_cores= 2
+    db_memory = 2
+    db_core_fraction = 20
+  }
+  description = "resources for all vms"
 }
-###ssh vars
 
-variable "vms_ssh_root_key" {
-  type        = string
-  description = "ssh-keygen -t ed25519"
-}
+###metadata vars
+
+variable "metadata" {
+  default = {
+    serial-port-enable = 1
+    ssh-keys = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHLLT6JoNumb4GrgtjBxlsfNToo5BTahG0umr/4gdw5b ad@MacBook-AirBender.local"
+  }
+  }
