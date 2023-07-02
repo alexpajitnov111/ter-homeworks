@@ -8,3 +8,8 @@
 
 # own secret vars store.
 personal.auto.tfvars
+
+# additional files
+*.test
+*.tmp
+*.bkp

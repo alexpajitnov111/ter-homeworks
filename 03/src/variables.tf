@@ -30,3 +30,28 @@ variable "vpc_name" {
   default     = "develop"
   description = "VPC network&subnet name"
 }
+
+variable "public_key" {
+  type        = string
+  description = "ssh ed25519 public key"
+}
+
+
+#list of resources
+variable "resources_list" {
+  type = list(object(
+    {
+      vm_name = string
+      cpu     = number
+      ram     = number
+      disk    = number
+  }))
+  default = [
+    {
+      vm_name = "yandex_compute_image.vm.name"
+      cpu     = 2
+      ram     = 2
+      disk    = 1
+    }
+  ]
+}
