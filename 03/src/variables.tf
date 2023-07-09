@@ -55,3 +55,15 @@ variable "resources_list" {
     }
   ]
 }
+
+/*
+variable "secondary_disk_list" {
+  type = list(object(
+    {
+      disk_id = string
+  }))
+  default = [{
+    disk_id = "yandex_compute_disk.disks.name.id"
+  }]
+}
+*/

@@ -1,6 +1,7 @@
-data "yandex_compute_disk" "default" {
-  disk_id = "disk-${count.index}"
-  count   = 3
+resource "yandex_compute_disk" "disks" {
+  name  = "disk-${count.index}"
+  count = 3
+  size  = 1
 }
 
 resource "yandex_compute_instance" "storage" {
@@ -13,16 +14,20 @@ resource "yandex_compute_instance" "storage" {
     core_fraction = 5
   }
 
-  secondary_disk {
-    disk_id = data.yandex_compute_disk.default.id[count.index]
-  }
-
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.ubuntu-2004-lts.image_id
       type     = "network-hdd"
       size     = 5
     }
+  }
+
+  dynamic "secondary_disk" {
+    for_each = disks.yandex_compute_disk.*
+    content {
+      disk_id = data.yandex_compute_disk.disks.id
+    }
+
   }
 
   metadata = {
@@ -35,6 +40,6 @@ resource "yandex_compute_instance" "storage" {
     subnet_id = yandex_vpc_subnet.develop.id
     nat       = true
   }
+
   allow_stopping_for_update = true
 }
-
